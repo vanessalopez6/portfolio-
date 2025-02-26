@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journalism Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 7rem 0;
+            position: relative;
+        }
+        
+        .navbar {
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            height: 4px;
+            width: 60px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .card {
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-text {
+            color: #6c757d;
+        }
+        
+        .card-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .contact-info i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .bio-img {
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-button {
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            border: 1px solid #dee2e6;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .filter-button.active, .filter-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .portfolio-item {
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 2px;
+            background-color: #dee2e6;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .timeline-date {
+            background-color: var(--secondary-color);
+            color: white;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 767.98px) {
+            .timeline:before {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Your Name</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Your Name</h1>
+                    <p class="lead mb-5">Journalist • Writer • Content Creator</p>
+                    <a href="#contact" class="btn btn-primary me-3">Get in Touch</a>
+                    <a href="#portfolio" class="btn btn-outline-light">View My Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="lead">A passionate journalist with a focus on investigative reporting and multimedia storytelling.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
+                    <p>Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-medium-m"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="/api/placeholder/600/400" alt="Your Name" class="img-fluid bio-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">My Work</h2>
+            
+            <div class="text-center mb-4">
+                <button class="filter-button active" data-filter="all">All</button>
+                <button class="filter-button" data-filter="feature">Feature Articles</button>
+                <button class="filter-button" data-filter="investigation">Investigations</button>
+                <button class="filter-button" data-filter="social">Social Media</button>
+                <button class="filter-button" data-filter="multimedia">Multimedia</button>
+            </div>
+            
+            <div class="row portfolio-container">
+                <!-- Portfolio Item 1 -->
+                <div class="col-md-6 col-lg-4 portfolio-item feature">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 1">
+                        <span class="card-category">Feature</span>
+                        <div class="card-body">
+                            <h5 class="card-title">The Hidden Cost of Fashion</h5>
+                            <p class="card-text">An in-depth look at the environmental impact of fast fashion.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">June 2023</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="col-md-6 col-lg-4 portfolio-item investigation">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 2">
+                        <span class="card-category">Investigation</span>
+                        <div class="card-body">
+                            <h5 class="card-title">Corruption in City Hall</h5>
+                            <p class="card-text">A six-month investigation into misappropriation of public funds.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">March 2023</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="col-md-6 col-lg-4 portfolio-item social">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 3">
+                        <span class="card-category">Social Media</span>
+                        <div class="card-body">
+                            <h5 class="card-title">Viral Campaign Success</h5>
+                            <p class="card-text">How we increased engagement by 400% with a strategic social media campaign.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">January 2023</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="col-md-6 col-lg-4 portfolio-item multimedia">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 4">
+                        <span class="card-category">Multimedia</span>
+                        <div class="card-body">
+                            <h5 class="card-title">Life After the Storm</h5>
+                            <p class="card-text">An interactive documentary about rebuilding after natural disasters.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">December 2022</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="col-md-6 col-lg-4 portfolio-item feature">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 5">
+                        <span class="card-category">Feature</span>
+                        <div class="card-body">
+                            <h5 class="card-title">The Last Lighthouse Keeper</h5>
+                            <p class="card-text">A profile of the dwindling profession and the people who maintain this tradition.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">October 2022</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="col-md-6 col-lg-4 portfolio-item social">
+                    <div class="card">
+                        <img src="/api/placeholder/600/400" class="card-img-top" alt="Project 6">
+                        <span class="card-category">Social Media</span>
+                        <div class="card-body">
+                            <h5 class="card-title">Breaking News Strategy</h5>
+                            <p class="card-text">How we leveraged Twitter to break stories faster than competitors.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">August 2022</small>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Experience & Education</h2>
+            
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="row timeline-item">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="timeline-content">
+                            <span class="timeline-date">2021 - Present</span>
+                            <h4>Senior Journalist</h4>
+                            <h6>The Daily Chronicle</h6>
+                            <p>Lead investigative reporter focusing on political corruption and environmental issues. Produced award-winning multimedia packages and mentored junior staff.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 2 -->
+                <div class="row timeline-item">
+                    <div class="col-lg-6">
+                        <div class="timeline-content">
+                            <span class="timeline-date">2018 - 2021</span>
+                            <h4>Staff Writer</h4>
+                            <h6>Metro News</h6>
+                            <p>Covered city politics, education, and community events. Developed social media strategy that increased readership by 35% over three years.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 3 -->
+                <div class="row timeline-item">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="timeline-content">
+                            <span class="timeline-date">2016 - 2018</span>
+                            <h4>Freelance Journalist</h4>
+                            <h6>Various Publications</h6>
+                            <p>Contributed features, profiles, and news articles to national and regional publications including The Atlantic, Slate, and regional newspapers.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 4 -->
+                <div class="row timeline-item">
+                    <div class="col-lg-6">
+                        <div class="timeline-content">
+                            <span class="timeline-date">2014 - 2016</span>
+                            <h4>Master's in Journalism</h4>
+                            <h6>Columbia University</h6>
+                            <p>Specialized in investigative reporting and multimedia storytelling. Thesis project on the impact of social media on election coverage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Get in Touch</h2>
+                    <p class="mb-4">Have a story idea or interested in working together? I'd love to hear from you.</p>
+                    
+                    <div class="contact-info mb-4">
+                        <p><i class="fas fa-envelope"></i> your.email@example.com</p>
+                        <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                        <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-medium-m"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline float-md-end mb-0">
+                        <li class="list-inline-item"><a href="#home" class="footer-link">Home</a></li>
+                        <li class="list-inline-item"><a href="#about" class="footer-link">About</a></li>
+                        <li class="list-inline-item"><a href="#portfolio" class="footer-link">Portfolio</a></li>
+                        <li class="list-inline-item"><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Portfolio filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide portfolio items based on filter
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const navbarToggler = document.querySelector('.navbar-toggler');
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarToggler.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
